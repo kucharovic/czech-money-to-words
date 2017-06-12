@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Utility to convert a number to a CZK currency word representation.",
     "keywords": ["php", "czk", "czech currency"],
-    "homepage": "https://github.com/kucharovic/CzechMoneyToWords",
+    "homepage": "https://github.com/kucharovic/czech-money-to-words",
     "license": "MIT",
     "authors": [
         {
