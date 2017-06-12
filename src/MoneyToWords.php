@@ -6,6 +6,9 @@ use InvalidArgumentException;
 
 final class MoneyToWords
 {
+    const PRESERVE_SPACES = false;
+    const REPLACE_SPACES  = true;
+
     /**
      * @var float
      */
@@ -31,7 +34,7 @@ final class MoneyToWords
      * @param float|integer|string $amount
      * @param boolean $replaceSpaces
      */
-    public function spellout($amount, $replaceSpaces = true)
+    public function spellout($amount, $replaceSpaces = self::REPLACE_SPACES)
     {
         $this->amount = floatval($amount);
 

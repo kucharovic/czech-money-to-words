@@ -23,7 +23,7 @@ final class MoneyToWordsTest extends PHPUnit_Framework_TestCase
 
     public function testSimpleNumberWithSpaces()
     {
-        $this->assertSame('jedno sto dvacet tři korun českých', $this->f->spellout(123, false));
+        $this->assertSame('jedno sto dvacet tři korun českých', $this->f->spellout(123, MoneyToWords::PRESERVE_SPACES));
     }
 
     public function testNegativeNumber()
