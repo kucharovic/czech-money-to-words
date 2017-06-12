@@ -19,5 +19,6 @@ use JK\Utils\MoneyToWords;
 $formatter = new MoneyToWords();
 
 echo $formatter->spellout(123); // jednostodvacettři korun českých
+echo $formatter->spellout(21.5, MoneyToWords::PRESERVE_SPACES); // dvacet jedna korun českých padesát haléřů
 
 ```
