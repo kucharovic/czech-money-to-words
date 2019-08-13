@@ -1,18 +1,22 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace JK\Utils\Tests;
 
+use InvalidArgumentException;
 use JK\Utils\MoneyToWords;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-final class MoneyToWordsTest extends PHPUnit_Framework_TestCase
+final class MoneyToWordsTest extends TestCase
 {
     /**
      * @var MoneyToWords
      */
     private $f;
 
-    protected function setUp()
+    public function __construct()
     {
+        parent::__construct();
+
         $this->f = new MoneyToWords();
     }
 
@@ -36,11 +40,9 @@ final class MoneyToWordsTest extends PHPUnit_Framework_TestCase
         $this->assertSame('jednostodvacettři korun českých padesát haléřů', $this->f->spellout(123.5));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testLargeNumberException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->f->spellout(1000000000);
     }
 }

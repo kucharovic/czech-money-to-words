@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JK\Utils;
 
@@ -15,7 +15,7 @@ final class MoneyToWords
     private $amount;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $replaceSpaces;
 
@@ -32,11 +32,11 @@ final class MoneyToWords
 
     /**
      * @param float|integer|string $amount
-     * @param boolean $replaceSpaces
+     * @param bool $replaceSpaces
      */
-    public function spellout($amount, $replaceSpaces = self::REPLACE_SPACES)
+    public function spellout($amount, bool $replaceSpaces = self::REPLACE_SPACES): string
     {
-        $this->amount = floatval($amount);
+        $this->amount = \floatval($amount);
 
         if (999999999 < $this->amount) {
             throw new InvalidArgumentException('Parsing larger numbers than 1.000.000.000 is not supported');
@@ -47,10 +47,10 @@ final class MoneyToWords
 
         if (0 > $this->amount) {
             $this->words = 'mínus ';
-            $this->amount = abs($this->amount);
+            $this->amount = \abs($this->amount);
         }
 
-        list($whole, $decimal) = sscanf(sprintf('%0.2f', $this->amount), '%d.%d');
+        list($whole, $decimal) = \sscanf(\sprintf('%0.2f', $this->amount), '%d.%d');
 
         $this->words .= $this->parseNumber($whole);
 
@@ -77,7 +77,7 @@ final class MoneyToWords
         return $this->words;
     }
 
-    private function parseNumber($number)
+    private function parseNumber(int $number): string
     {
         $words = '';
 
@@ -91,17 +91,17 @@ final class MoneyToWords
             $words .= $this->millions($number);
         }
 
-        return preg_replace('/\s+/', $this->replaceSpaces ? '' : ' ', trim($words));
+        return \preg_replace('/\s+/', $this->replaceSpaces ? '' : ' ', trim($words));
     }
 
-    private function onesAndTens($number)
+    private function onesAndTens(int $number): string
     {
         $words = '';
 
         if ($number < 20) {
             $words .= self::$ones[$number];
         } else {
-            $words .= self::$tens[intval($number / 10)];
+            $words .= self::$tens[\intval($number / 10)];
             if (($number % 10) > 0) {
                 $words .= ' ' . self::$ones[$number % 10];
             }
@@ -110,10 +110,10 @@ final class MoneyToWords
         return $words;
     }
 
-    private function hundreds($number)
+    private function hundreds(int $number): string
     {
         $words = '';
-        $hundreds = intval($number / 100);
+        $hundreds = \intval($number / 100);
         $tens = ($number % 100);
 
         if (100 > $number) {
@@ -129,10 +129,10 @@ final class MoneyToWords
         return $words;
     }
 
-    private function thousands($number)
+    private function thousands(int $number): string
     {
         $words = '';
-        $thousands = intval($number / 1000);
+        $thousands = \intval($number / 1000);
         $hundreds = ($number % 1000);
 
         $words .= $this->hundreds($thousands) . ' ';
@@ -154,10 +154,10 @@ final class MoneyToWords
         return $words;
     }
 
-    private function millions($number)
+    private function millions(int $number): string
     {
         $words = '';
-        $millions = intval($number / 1000000);
+        $millions = \intval($number / 1000000);
         $thousands = ($number % 1000000);
 
         $words .= $this->hundreds($millions) . ' ';

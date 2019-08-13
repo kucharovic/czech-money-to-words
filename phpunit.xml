@@ -13,7 +13,7 @@
         </whitelist>
     </filter>
     <testsuites>
-        <testsuite>
+        <testsuite name="kucharovic/czech-money-to-words test suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
